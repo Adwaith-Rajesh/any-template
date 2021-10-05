@@ -1,5 +1,6 @@
 import argparse
 import json
+import os
 import sys
 from pathlib import Path
 from typing import Dict
@@ -25,6 +26,7 @@ example_use = """
 
         anytemp use python-fast-api
         anytemp use python --license MIT
+        anytemp use python --git
         anytemp ls
         anytemp ls -c python
 """
@@ -145,6 +147,9 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
     use.add_argument("-l", "--license",
                      help="The license to use for the project.",
                      default="mit", type=str)
+    use.add_argument("--git",
+                     help="Initialize a git repo",
+                     action="store_true")
 
     ls = sub.add_parser(
         "ls", help="List all the available templates."
@@ -176,6 +181,16 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
             if isinstance(template["files_with_contents"], dict):
                 template["files_with_contents"]["LICENSE"] = license_choices[args.license.lower()]
             build_template(template)
+
+            if args.git:
+                if not Path(".git").is_dir():
+                    ec = os.system("git init")
+                    return ec
+
+                else:
+                    print("git is already initialized.", file=sys.stderr)
+                    return 2
+
             return 0
 
         else:
