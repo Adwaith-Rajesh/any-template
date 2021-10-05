@@ -1,8 +1,9 @@
 {
-	"folders": [],
-	"files": ["setup.cfg", "setup.py", "README.md"],
+	"folders": ["tests"],
+	"files": ["setup.cfg", "setup.py", "README.md", "tests/__init__.py", "requirements.txt", "requirements-dev.txt"],
 	"files_with_contents": {
 		".gitignore": "https://raw.githubusercontent.com/github/gitignore/master/Python.gitignore",
-		"CONTRIBUTING.md": "https://gist.githubusercontent.com/PurpleBooth/b24679402957c63ec426/raw/5c4f62c1e50c1e6654e76e873aba3df2b0cdeea2/Good-CONTRIBUTING.md-template.md"
+		"CONTRIBUTING.md": "https://gist.githubusercontent.com/PurpleBooth/b24679402957c63ec426/raw/5c4f62c1e50c1e6654e76e873aba3df2b0cdeea2/Good-CONTRIBUTING.md-template.md",
+		"CODE_OF_CONDUCT.md": "https://gist.githubusercontent.com/Integralist/4e84af31c483d0f5a182/raw/c6b2bf838eb1d00f6717b89676c365eb5018c6b8/Code%2520of%2520Conduct.md"
 	}
 }
