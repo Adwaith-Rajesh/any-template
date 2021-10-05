@@ -17,14 +17,16 @@ TemplateType = Dict[str, Union[List[str], Dict[str, str]]]
 
 
 TEMPLATES_URL = "https://raw.githubusercontent.com/Adwaith-Rajesh/any-template/master/templates/"
-TEMPLATE_LIST_URL = ""
+TEMPLATE_LIST_URL = "https://api.github.com/repos/Adwaith-Rajesh/any-template/contents/templates"
 
 
 example_use = """
     Example use:
 
         anytemp use python-fast-api
-        anytemp use python --license MIT \n
+        anytemp use python --license MIT
+        anytemp ls
+        anytemp ls -c python
 """
 
 license_choices = {
@@ -59,6 +61,24 @@ def get_template(template_name: str) -> Union[TemplateType, None]:
         return data
 
     return None
+
+
+def get_all_templates() -> List[str]:
+    templates = []
+    try:
+        response = urlopen(TEMPLATE_LIST_URL)
+        if response.status == 200:
+            data = json.loads(response.read())
+
+            for d in data:
+                templates.append(d["name"].replace(".json", ""))
+            return templates
+
+        else:
+            return []
+
+    except (HTTPError, json.decoder.JSONDecodeError):
+        return []
 
 
 def build_template(template: TemplateType) -> None:
@@ -126,6 +146,14 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
                      help="The license to use for the project.",
                      default="mit", type=str)
 
+    ls = sub.add_parser(
+        "ls", help="List all the available templates."
+    )
+    ls.add_argument("-c", "--contains",
+                    help="Only show templates that contains a specific word",
+                    type=str
+                    )
+
     args = parser.parse_args(argv)
 
     if not args.commands and args.v:
@@ -153,6 +181,15 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
         else:
             print("Template does not exits.\nUse 'anytemp ls' to list all the available templates", file=sys.stderr)
             return 1
+
+    if args.commands == "ls":
+        templates = get_all_templates()
+        if args.contains:
+            templates = list(filter(lambda x: args.contains in x, templates))
+
+        for template_name in templates:
+            print(template_name)
+        return 0
 
     return 0
 
