@@ -1,6 +1,6 @@
 {
-	"folders": ["routers"],
-	"files": ["app.py", "routers/__init__.py", "README.md"],
+	"folders": [],
+	"files": ["setup.cfg", "setup.py", "README.md"],
 	"files_with_contents": [
 		{ ".gitignore": "https://raw.githubusercontent.com/github/gitignore/master/Python.gitignore" }
 	]
