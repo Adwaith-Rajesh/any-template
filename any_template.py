@@ -22,13 +22,14 @@ TEMPLATE_LIST_URL = "https://api.github.com/repos/Adwaith-Rajesh/any-template/co
 
 
 example_use = """
-    Example use:
+Example use:
 
-        anytemp use python-fast-api
-        anytemp use python --license MIT
-        anytemp use python --git
-        anytemp ls
-        anytemp ls -c python
+    anytemp use python-fast-api
+    anytemp use python-simple-package --license MIT
+    anytemp use adwaith/python-package --git
+    anytemp ls
+    anytemp ls -c python
+
 """
 
 license_choices = {
