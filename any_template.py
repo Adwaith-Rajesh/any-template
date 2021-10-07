@@ -65,15 +65,21 @@ def get_template(template_name: str) -> Union[TemplateType, None]:
     return None
 
 
-def get_all_templates() -> List[str]:
-    templates = []
+def get_all_templates(url: Optional[str] = None) -> List[str]:
+    templates: List[str] = []
     try:
-        response = urlopen(TEMPLATE_LIST_URL)
+        response = urlopen(url or TEMPLATE_LIST_URL)
         if response.status == 200:
             data = json.loads(response.read())
 
             for d in data:
-                templates.append(d["name"].replace(".json", ""))
+                if d["type"] == "dir":
+                    sub_temp = map(
+                        lambda x: f"{d['name']}/{x}", get_all_templates(f"{TEMPLATE_LIST_URL}/{d['name']}"))
+                    templates.extend(sub_temp)
+
+                else:
+                    templates.append(d["name"].replace(".json", ""))
             return templates
 
         else:
