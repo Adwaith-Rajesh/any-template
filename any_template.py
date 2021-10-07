@@ -11,7 +11,7 @@ from typing import Union
 from urllib.error import HTTPError
 from urllib.request import urlopen
 
-__version__ = "0.1.1"
+__version__ = "0.2.0"
 
 # types
 TemplateType = Dict[str, Union[List[str], Dict[str, str]]]
