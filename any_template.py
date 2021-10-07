@@ -11,7 +11,7 @@ from typing import Union
 from urllib.error import HTTPError
 from urllib.request import urlopen
 
-__version__ = "0.1.1"
+__version__ = "0.2.0"
 
 # types
 TemplateType = Dict[str, Union[List[str], Dict[str, str]]]
@@ -22,13 +22,14 @@ TEMPLATE_LIST_URL = "https://api.github.com/repos/Adwaith-Rajesh/any-template/co
 
 
 example_use = """
-    Example use:
+Example use:
 
-        anytemp use python-fast-api
-        anytemp use python --license MIT
-        anytemp use python --git
-        anytemp ls
-        anytemp ls -c python
+    anytemp use python-fast-api
+    anytemp use python-simple-package --license MIT
+    anytemp use adwaith/python-package --git
+    anytemp ls
+    anytemp ls -c python
+
 """
 
 license_choices = {
@@ -65,15 +66,21 @@ def get_template(template_name: str) -> Union[TemplateType, None]:
     return None
 
 
-def get_all_templates() -> List[str]:
-    templates = []
+def get_all_templates(url: Optional[str] = None) -> List[str]:
+    templates: List[str] = []
     try:
-        response = urlopen(TEMPLATE_LIST_URL)
+        response = urlopen(url or TEMPLATE_LIST_URL)
         if response.status == 200:
             data = json.loads(response.read())
 
             for d in data:
-                templates.append(d["name"].replace(".json", ""))
+                if d["type"] == "dir":
+                    sub_temp = map(
+                        lambda x: f"{d['name']}/{x}", get_all_templates(f"{TEMPLATE_LIST_URL}/{d['name']}"))
+                    templates.extend(sub_temp)
+
+                else:
+                    templates.append(d["name"].replace(".json", ""))
             return templates
 
         else:
