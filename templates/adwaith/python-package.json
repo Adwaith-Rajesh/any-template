@@ -7,6 +7,6 @@
 		"CODE_OF_CONDUCT.md": "https://gist.githubusercontent.com/Integralist/4e84af31c483d0f5a182/raw/c6b2bf838eb1d00f6717b89676c365eb5018c6b8/Code%2520of%2520Conduct.md",
 		"setup.cfg": "https://raw.githubusercontent.com/Adwaith-Rajesh/any-template/master/contents/adwaith/python-package/setup.cfg",
 		"setup.py": "https://raw.githubusercontent.com/Adwaith-Rajesh/any-template/master/contents/adwaith/python-package/setup.py",
-		".pre-commit-config.yml": "https://raw.githubusercontent.com/Adwaith-Rajesh/any-template/master/contents/adwaith/python-package/.pre-commit-config.yml"
+		".pre-commit-config.yaml": "https://raw.githubusercontent.com/Adwaith-Rajesh/any-template/master/contents/adwaith/python-package/.pre-commit-config.yml"
 	}
 }
