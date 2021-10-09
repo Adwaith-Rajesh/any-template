@@ -6,7 +6,7 @@ class Plugin:
     def __init__(self) -> None:
         pass
 
-    def plugin_parser(self, subparser: argparse._SubParsersAction) -> None:
+    def plugin_parser(self, subparser: argparse.ArgumentParser) -> None:
         """
         The subparser is passed in as the only argument, and you can add the arguments for you command
         here
